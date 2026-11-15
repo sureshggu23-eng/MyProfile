@@ -68,7 +68,7 @@ export const HeroSection: React.FC = () => {
           "
         >
           <source
-            src="/videos/hero.mp4"
+            src={`${import.meta.env.BASE_URL}videos/hero.mp4`}
             type="video/mp4"
           />
 
@@ -458,7 +458,7 @@ export const HeroSection: React.FC = () => {
               {/* Resume */}
 
               <motion.a
-                href="public\resume.pdf"
+                href={`${import.meta.env.BASE_URL}resume.pdf`}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{
@@ -565,7 +565,7 @@ export const HeroSection: React.FC = () => {
             >
 
               <img
-                src="/profile.jpg"
+                src={`${import.meta.env.BASE_URL}profile.jpg`}
                 alt="Suresh G"
                 className="
                   block

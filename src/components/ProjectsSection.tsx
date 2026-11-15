@@ -16,7 +16,7 @@ const projects: Project[] = [
       "Designed around a practical safety-monitoring use case, with an emphasis on clear visual feedback."
     ],
     technologies: ["Python", "OpenCV", "YOLOv8", "Computer Vision"],
-    image: "/images/suspicious-activity-detection.svg",
+    image: `${import.meta.env.BASE_URL}images/suspicious-activity-detection.svg`,
     github: "https://github.com/sureshggu23-eng"
   },
   {
@@ -29,7 +29,7 @@ const projects: Project[] = [
       "Built as a front-end web project using core web technologies."
     ],
     technologies: ["HTML", "CSS", "JavaScript", "Web Development"],
-    image: "/images/organo-connect.svg",
+    image: `${import.meta.env.BASE_URL}images/organo-connect.svg`,
     github: "https://github.com/sureshggu23-eng/Organo_Project"
   },
   {
@@ -42,7 +42,7 @@ const projects: Project[] = [
       "Explores practical applications of machine learning in visual recognition."
     ],
     technologies: ["Python", "YOLO", "OpenCV", "Machine Learning"],
-    image: "/images/wild-animal-detection.svg",
+    image: `${import.meta.env.BASE_URL}images/wild-animal-detection.svg`,
     github: "https://github.com/sureshggu23-eng"
   },
   {
