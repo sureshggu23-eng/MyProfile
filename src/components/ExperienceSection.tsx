@@ -309,9 +309,12 @@ export const ExperienceSection: React.FC = () => {
                   grid
                   gap-7
                   p-7
-                  md:grid-cols-[90px_180px_1fr_130px]
-                  md:items-center
-                  md:p-9
+                  md:grid-cols-[70px_140px_1fr]
+                  md:items-start
+                  md:p-8
+                  lg:grid-cols-[90px_180px_1fr_130px]
+                  lg:items-center
+                  lg:p-9
                 "
               >
 
@@ -418,10 +421,12 @@ export const ExperienceSection: React.FC = () => {
                     border-t
                     border-white/10
                     pt-5
-                    md:border-l
-                    md:border-t-0
-                    md:pl-7
-                    md:pt-0
+                    md:col-start-3
+                    lg:col-start-auto
+                    lg:border-l
+                    lg:border-t-0
+                    lg:pl-7
+                    lg:pt-0
                   "
                 >
 

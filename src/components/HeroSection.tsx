@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+
+const typingPhrases = [
+  "Python + data for real-world problems",
+  "Computer vision for practical AI",
+  "Top 5% in NPTEL Python for Data Science",
+];
 
 const navItems = [
   { name: "ABOUT", href: "#about" },
@@ -40,6 +46,39 @@ const fadeUpVariants = {
 };
 
 export const HeroSection: React.FC = () => {
+  const [typedText, setTypedText] = useState(typingPhrases[0]);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let phraseIndex = 0;
+    let characterIndex = 0;
+    let deleting = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const typeNextCharacter = () => {
+      const phrase = typingPhrases[phraseIndex];
+      characterIndex += deleting ? -1 : 1;
+      setTypedText(phrase.slice(0, characterIndex));
+
+      let delay = deleting ? 45 : 75;
+      if (!deleting && characterIndex === phrase.length) {
+        deleting = true;
+        delay = 1400;
+      } else if (deleting && characterIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % typingPhrases.length;
+        delay = 350;
+      }
+
+      timeoutId = setTimeout(typeNextCharacter, delay);
+    };
+
+    setTypedText("");
+    timeoutId = setTimeout(typeNextCharacter, 600);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   return (
     <section
@@ -61,10 +100,15 @@ export const HeroSection: React.FC = () => {
           /*preload="auto"*/
           className="
             absolute
-            inset-0
-            h-full
+            inset-x-0
+            top-0
+            aspect-video
+            h-auto
             w-full
             object-cover
+            lg:inset-0
+            lg:aspect-auto
+            lg:h-full
           "
         >
           <source
@@ -122,7 +166,8 @@ export const HeroSection: React.FC = () => {
           min-h-screen
           flex-col
           px-6
-          py-6
+          py-4
+          sm:py-6
           sm:px-10
           lg:px-16
         "
@@ -163,8 +208,9 @@ export const HeroSection: React.FC = () => {
               -translate-x-1/2
               items-center
               gap-8
-              md:flex
+              lg:flex
             "
+            aria-label="Primary navigation"
           >
 
             {navItems.map((item) => (
@@ -246,6 +292,21 @@ export const HeroSection: React.FC = () => {
 
         </header>
 
+        <nav
+          className="mt-4 flex w-full flex-wrap gap-x-3 lg:hidden"
+          aria-label="Mobile navigation"
+        >
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className="flex min-h-11 shrink-0 items-center whitespace-nowrap py-2 text-[10px] uppercase tracking-[0.18em] text-gray-200 transition-colors duration-300 hover:text-white"
+            >
+              {item.name}
+            </a>
+          ))}
+        </nav>
+
 
         {/* =================================================
             HERO CONTENT
@@ -253,11 +314,14 @@ export const HeroSection: React.FC = () => {
 
         <div
           className="
-            my-auto
+            mt-5
             flex
-            flex-1
             items-center
-            py-16
+            py-4
+            lg:my-auto
+            lg:mt-0
+            lg:flex-1
+            lg:py-16
           "
         >
 
@@ -294,7 +358,7 @@ export const HeroSection: React.FC = () => {
                 flex
                 items-baseline
                 whitespace-nowrap
-                text-6xl
+                text-[clamp(2.5rem,10vw,6rem)]
                 font-bold
                 uppercase
                 leading-none
@@ -524,16 +588,27 @@ export const HeroSection: React.FC = () => {
             duration: 1.2,
             ease: [0.16, 1, 0.3, 1] as const,
           }}
-          className="
-            absolute
-            bottom-24
-            right-8
-            hidden
-            lg:block
-          "
+          className="relative z-10 mt-6 flex w-full items-center gap-4 lg:absolute lg:bottom-24 lg:right-8 lg:mt-0 lg:w-auto"
         >
 
-          <div className="relative">
+          <div
+            role="img"
+            aria-label="MCA student building practical Python, data and computer-vision projects; top 5% in NPTEL Python for Data Science."
+            className="min-w-0 flex-1 lg:hidden"
+          >
+            <p className="section-kicker mb-2 text-[8px] tracking-[0.2em]">
+              BEYOND THE CODE
+            </p>
+            <p
+              aria-hidden="true"
+              className="min-h-16 text-[11px] leading-5 text-gray-200 sm:text-xs"
+            >
+              {typedText}
+              <span className="text-blue-400">|</span>
+            </p>
+          </div>
+
+          <div className="relative w-fit shrink-0">
 
             {/* Photo glow */}
 
@@ -553,8 +628,12 @@ export const HeroSection: React.FC = () => {
             <div
               className="
                 relative
-                h-60
-                w-60
+                h-36
+                w-36
+                sm:h-40
+                sm:w-40
+                lg:h-60
+                lg:w-60
                 overflow-hidden
                 rounded-full
                 border
@@ -591,16 +670,15 @@ export const HeroSection: React.FC = () => {
               "
             />
 
-          </div>
-
-
           {/* Photo caption */}
 
           <p
             className="
-              mt-5
+              mt-2
+              text-[8px]
+              sm:mt-5
+              sm:text-[9px]
               text-center
-              text-[9px]
               uppercase
               tracking-[0.3em]
               text-gray-300
@@ -608,6 +686,8 @@ export const HeroSection: React.FC = () => {
           >
             PYTHON • DATA • AI
           </p>
+
+          </div>
 
         </motion.div>
 
@@ -628,6 +708,8 @@ export const HeroSection: React.FC = () => {
             uppercase
             tracking-[0.25em]
             text-gray-300
+            mt-auto
+            lg:mt-0
           "
         >
 
